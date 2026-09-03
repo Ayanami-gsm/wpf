@@ -1,0 +1,14 @@
+﻿# ===== VueCSharpLogin 忽略规则 =====
+# 前端依赖与构建
+Frontend/node_modules/
+Frontend/dist/
+Frontend/.vscode/
+
+# 后端构建产物与 IDE
+Backend/bin/
+Backend/obj/
+Backend/.vs/
+
+# 运行日志与临时
+*.log
+*.local
