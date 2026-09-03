@@ -1,0 +1,41 @@
+<UserControl x:Class="ClashWpf.Views.ConnectionsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:cal="http://www.caliburnproject.org">
+    <Grid Margin="16">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0" Margin="0,0,0,10">
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <Button Content="断开全部连接" Padding="12,6" Margin="0,0,8,0"
+                        cal:Message.Attach="[Click] = [CloseAll]"/>
+            </StackPanel>
+            <TextBlock Text="{Binding Summary}" VerticalAlignment="Center" FontSize="13"
+                       Foreground="#374151"/>
+        </DockPanel>
+
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Rows}"
+                  AutoGenerateColumns="False" IsReadOnly="True"
+                  HeadersVisibility="Column" Background="White" EnableRowVirtualization="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="目标" Binding="{Binding HostPort}" Width="*"/>
+                <DataGridTextColumn Header="网络" Binding="{Binding Network}" Width="70"/>
+                <DataGridTextColumn Header="规则" Binding="{Binding Rule}" Width="140"/>
+                <DataGridTextColumn Header="链路" Binding="{Binding ChainsText}" Width="220"/>
+                <DataGridTextColumn Header="上传" Binding="{Binding Upload}" Width="90"/>
+                <DataGridTextColumn Header="下载" Binding="{Binding Download}" Width="90"/>
+                <DataGridTemplateColumn Header="操作" Width="70">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="断开" Padding="8,2" FontSize="11"
+                                    cal:Message.Attach="[Click] = [CloseSelected($dataContext)]"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

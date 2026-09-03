@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>ClashWpf</RootNamespace>
+    <AssemblyName>ClashWpf</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Version>0.1.0</Version>
+    <Authors>dev</Authors>
+    <Description>WPF + Caliburn.Micro 的 mihomo(Clash) 图形控制器</Description>
+    <!-- 规避 dotnet WPF 在非 ASCII 路径下的 wpftmp 重复特性构建 bug（CS0579） -->
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Caliburn.Micro" Version="4.0.*" />
+    <PackageReference Include="YamlDotNet" Version="16.*" />
+  </ItemGroup>
+
+  <!-- tests/ 是独立探针项目，避免被默认 glob 编入主程序 -->
+  <ItemGroup>
+    <Compile Remove="tests\**\*.cs" />
+    <Page Remove="tests\**" />
+    <None Remove="tests\**" />
+  </ItemGroup>
+
+</Project>

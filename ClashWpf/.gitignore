@@ -1,0 +1,15 @@
+﻿# ===== ClashWpf 忽略规则 =====
+# 构建产物
+bin/
+obj/
+*.user
+*.suo
+
+# mihomo 内核与订阅缓存（体积大/含用户凭据，不入库）
+core/
+*.zip
+tests/
+*.log
+
+# IDE
+.vs/

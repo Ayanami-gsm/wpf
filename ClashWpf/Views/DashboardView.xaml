@@ -1,0 +1,86 @@
+<UserControl x:Class="ClashWpf.Views.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:cal="http://www.caliburnproject.org">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="24">
+        <StackPanel>
+            <!-- 状态卡片 -->
+            <Border Background="White" CornerRadius="8" Padding="20" Margin="0,0,0,16">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <TextBlock Text="引擎状态" FontSize="12" Foreground="#6B7280"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                            <TextBlock Text="{Binding StateText}" FontSize="26" FontWeight="Bold"/>
+                            <TextBlock FontSize="12" Foreground="#6B7280" VerticalAlignment="Center" Margin="14,10,0,0">
+                                <Run Text="内核 v"/><Run Text="{Binding VersionText, Mode=OneWay}"/>
+                            </TextBlock>
+                        </StackPanel>
+                        <TextBlock Text="{Binding StateDetail}" Foreground="#DC2626" TextWrapping="Wrap"
+                                   FontSize="12"/>
+                        <TextBlock Text="{Binding LastAction}" Foreground="#2563EB" FontSize="12" Margin="0,4,0,0"/>
+                        <TextBlock Text="{Binding CorePath}" Foreground="#9CA3AF" FontSize="11" Margin="0,6,0,0"
+                                   TextTrimming="CharacterEllipsis" ToolTip="{Binding CorePath}"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <Button Content="启动引擎" Padding="20,8" Margin="0,0,0,8" FontSize="13"
+                                IsEnabled="{Binding CanStart}" cal:Message.Attach="[Click] = [Start]"/>
+                        <Button Content="停止引擎" Padding="20,8" Margin="0,0,0,8" FontSize="13"
+                                IsEnabled="{Binding CanStop}" cal:Message.Attach="[Click] = [Stop]"/>
+                        <Button Content="更新订阅并重建配置" Padding="12,6" FontSize="12"
+                                cal:Message.Attach="[Click] = [RefreshSubscription]"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- 流量卡片 -->
+            <Grid Margin="0,0,0,16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="12"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.Column="0" Background="White" CornerRadius="8" Padding="18">
+                    <StackPanel>
+                        <TextBlock Text="上行速率" Foreground="#6B7280" FontSize="12"/>
+                        <TextBlock Text="{Binding UpSpeed}" FontSize="22" FontWeight="Bold" Foreground="#059669" Margin="0,6,0,0"/>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="2" Background="White" CornerRadius="8" Padding="18">
+                    <StackPanel>
+                        <TextBlock Text="下行速率" Foreground="#6B7280" FontSize="12"/>
+                        <TextBlock Text="{Binding DownSpeed}" FontSize="22" FontWeight="Bold" Foreground="#2563EB" Margin="0,6,0,0"/>
+                    </StackPanel>
+                </Border>
+                <Border Grid.Column="4" Background="White" CornerRadius="8" Padding="18">
+                    <StackPanel>
+                        <TextBlock Text="累计流量" Foreground="#6B7280" FontSize="12"/>
+                        <TextBlock Margin="0,6,0,0" FontSize="15">
+                            <Run Text="↑ "/><Run Text="{Binding TotalUp, Mode=OneWay}"/><Run Text="    "/>
+                            <Run Text="↓ "/><Run Text="{Binding TotalDown, Mode=OneWay}"/>
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- 系统代理 -->
+            <Border Background="White" CornerRadius="8" Padding="18">
+                <DockPanel>
+                    <Button DockPanel.Dock="Right" Content="打开运行目录" Padding="12,6"
+                            cal:Message.Attach="[Click] = [OpenRunDir]"/>
+                    <CheckBox IsChecked="{Binding SysProxyChecked}" FontSize="14" VerticalAlignment="Center">
+                        <Run Text="将 Windows 系统代理指向本地引擎"/>
+                    </CheckBox>
+                    <TextBlock Text="（等效 Clash 的「系统代理」开关，走 mixed 端口）"
+                               Foreground="#9CA3AF" FontSize="12" Margin="12,0,0,0"
+                               VerticalAlignment="Center"/>
+                </DockPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
